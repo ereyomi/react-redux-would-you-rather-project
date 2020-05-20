@@ -1,19 +1,29 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { handleInitialData } from '../actions/shared';
 
-export class App extends Component {
+import AuthPage from './AuthPage'
+export class App extends Component
+{
   componentDidMount() {
     this.props.dispatch(handleInitialData())
   }
   render() {
       return (
-        <div>
-            <div> Would you Rather </div>
-          </div>
+          <Router>
+            <Fragment>
+                    <Route exact to="/" component={ AuthPage } />
+            </Fragment>
+        </Router>
       
     )
   }
 }
-
-export default connect()(App)
+function mapStateToProps ( { authedUser } )
+{
+    return {
+        authedUser: authedUser ? authedUser : null
+    }
+}
+export default connect( mapStateToProps)(App)
