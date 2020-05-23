@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { unsetAuthedUser } from '../actions/authedUser'
-import { formatAuth } from '../utils/helpers'
+import { getAuthDetails } from '../utils/helpers'
 
 export class Nav extends Component
 {
@@ -30,7 +30,7 @@ export class Nav extends Component
                         </Link>
                         </li>
                         <li>
-                            <Link to="/board">
+                            <Link to="/leaderboard">
                                 Leader Board
                         </Link>
                         </li>
@@ -61,7 +61,7 @@ function mapStateToProps ( { users, authedUser } )
 {
     return {
         users,
-        authedUser: formatAuth( users, authedUser),
+        authedUser: getAuthDetails( users, authedUser),
         isAuthenticated: authedUser ? true : false,
     }
 }

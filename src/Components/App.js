@@ -7,6 +7,7 @@ import Home from './Home'
 import Nav from './Nav'
 import ViewPoll from './ViewPoll'
 import VoteQuestionPage from './VoteQuestionPage'
+import LeaderBoard from './LeaderBoard'
 export class App extends Component
 {
   componentDidMount() {
@@ -20,6 +21,7 @@ export class App extends Component
                   <div>
                       <Switch>
                           <Route exact path="/" component={ Home } />
+                          <Route path="/leaderboard" component={ LeaderBoard } />
                           <Route path="/question/:question_id" component={ VoteQuestionPage } />
                           <Route path="/viewpoll/:question_id" component={ ViewPoll } />
                       </Switch>

@@ -33,7 +33,6 @@ export class VoteQuestionPage extends PureComponent
             return ( <p> no data to load </p> )
         }
         const { avatarURL, name, optionOneText, optionTwoText } = question;
-        console.log(question)
         return (
             <div>
                 <h2>{ name } asks: </h2>
@@ -77,7 +76,7 @@ function mapStateToProps ( { users, authedUser, questions }, props )
         qid: question_id,
         users,
         authedUser,
-        question: question ? formatQuestion( question, users[ question.author ] ) : null,
+        question: question ? formatQuestion( question, users, authedUser ) : null,
     }
 }
 export default withRouter( connect( mapStateToProps )( VoteQuestionPage ) )

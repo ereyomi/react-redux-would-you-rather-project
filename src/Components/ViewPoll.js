@@ -32,7 +32,6 @@ export class ViewPoll extends PureComponent
             return (<p> no data to load </p>)
         }
         const { name, optionOneText, optionTwoText, optionOneVotes, optionTwoVotes } = question;
-        console.log("question: ", question)
         const totalvotes = optionOneVotes + optionTwoVotes;
         return (
             <div>
@@ -63,7 +62,7 @@ function mapStateToProps ( { users, authedUser, questions }, props )
         qid: question_id,
         users,
         authedUser,
-        question: question ? formatQuestion( question, users[ question.author ], authedUser ) : null,
+        question: question ? formatQuestion( question, users , authedUser ) : null,
     }
 }
 export default withRouter(connect( mapStateToProps )(ViewPoll))
