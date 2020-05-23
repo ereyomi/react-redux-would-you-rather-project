@@ -12,7 +12,7 @@ export function handleInitialData()
             {
                 dispatch( setAuthedUser( 'tylermcginnis' ))
                 dispatch( receiveUsers( users ))
-                dispatch( receiveQuestions( questions ) )
+                dispatch( receiveQuestions( questions ))
             } )
     }
     

@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { formatQuestion } from '../utils/helpers';
-import { formatAuth } from '../utils/helpers';
 import { voteQuestion } from '../actions/questions'
 
 export class ViewPoll extends PureComponent
@@ -23,45 +22,32 @@ export class ViewPoll extends PureComponent
         event.preventDefault();
         const { authedUser, dispatch, qid } = this.props;
         const answer = this.state.votedOption;
-        dispatch( voteQuestion( authedUser.id, qid, answer))
+        dispatch( voteQuestion( authedUser, qid, answer))
     }
     render ()
     {
-        const { question, authedUser, qid } = this.props;
+        const { question, qid } = this.props;
         if ( question === null )
         {
             return (<p> no data to load </p>)
         }
-        const { optionOneText, optionTwoText } = question;
-        const { name, avatarURL } = authedUser
+        const { name, optionOneText, optionTwoText, optionOneVotes, optionTwoVotes } = question;
+        console.log("question: ", question)
+        const totalvotes = optionOneVotes + optionTwoVotes;
         return (
             <div>
-                <h2>{ name } asks: </h2>
-                <h3>Would you rather</h3>
-                <div>{ avatarURL }</div>
-                <p>{ optionOneText } or { optionTwoText }</p>
-                <form onSubmit={this.handleSubmit}>
-                    <div>
-                        <input
-                            type="radio"
-                            name={ `${ qid }` }
-                            value="optionOne"
-                            checked={ this.state.votedOption === 'optionOne' }
-                            onChange={ this.handleOption}/>
-                        <label>{ optionOneText }</label>
-                    </div>
-                    <div>
-                        <input type="radio"
-                            name={ `${ qid }` }
-                            value="optionTwo"
-                            checked={ this.state.votedOption === 'optionTwo' }
-                            onChange={ this.handleOption }/>
-                        <label>{ optionTwoText }</label>
-                    </div>
-                    
-                    <button type="submit">submit</button>
-                </form>
-                
+                <h2> Asked By: { name }</h2>
+                <h3>Results:</h3>
+                <div>
+                    <p>{ optionOneText }</p>
+                    <p>{ (optionOneVotes / totalvotes ) * 100 }%</p>
+                    <p>{ optionOneVotes } of { totalvotes }</p>
+                </div>
+                <div>
+                    <p>{ optionTwoText }</p>
+                    <p>{ ( optionTwoVotes / totalvotes ) * 100 }%</p>
+                    <p>{ optionTwoVotes } of { totalvotes }</p>
+                </div>
                 
             </div>
         )
@@ -70,14 +56,14 @@ export class ViewPoll extends PureComponent
 
 function mapStateToProps ( { users, authedUser, questions }, props )
 {
-    const { qid } = props.match.params
-    const question = questions[ qid ]
+    const { question_id } = props.match.params
+    const question = questions[ question_id ]
 
     return {
-        qid,
+        qid: question_id,
         users,
-        authedUser: formatAuth( users, authedUser ),
-        question: question ? formatQuestion( question, users[ question.author ] ) : null,
+        authedUser,
+        question: question ? formatQuestion( question, users[ question.author ], authedUser ) : null,
     }
 }
 export default withRouter(connect( mapStateToProps )(ViewPoll))

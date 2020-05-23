@@ -56,4 +56,4 @@ function mapStateToProps ( { authedUser, users } )
     }
 }
 
-export default withRouter(connect( mapStateToProps)(Home))
+export default withRouter( connect( mapStateToProps)(Home))

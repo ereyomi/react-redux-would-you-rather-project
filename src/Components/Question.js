@@ -10,13 +10,13 @@ export class Question extends Component {
         const { name, avatar, optionOneText, optionTwoText } = question;
         return (
             <div>
-                 <h2>{ name } asks: </h2>
-                <h3>Would you rather</h3>
-                <div>{ avatar }</div>
+               <h2>{ name } asks: </h2>
+                    <h3>Would you rather</h3>
+                    <div>{ avatar }</div> 
                 <p>{ optionOneText } or { optionTwoText }</p>
                 {
                     authedUser ? 
-                        <Link to={ `/view/poll/${ authedUser.id }/${ id }` }>View Poll</Link>
+                        <Link to={ `/question/${ id }` }>View Poll</Link>
                         : ''
 
                 } 
@@ -26,7 +26,7 @@ export class Question extends Component {
 }
 
 function mapStateToProps ( { users, questions, authedUser }, { id }) {
-    const question = questions[ id ]
+    const question = questions[ id ];
     return {
         authedUser: formatAuth( users, authedUser ),
         question: question ? formatQuestion( question, users[ question.author ] ) : null

@@ -1,10 +1,10 @@
 import {
-    RECEIVE_QUESTIONS, VOTED_FOR_QUESTION
+    RECEIVE_QUESTIONS, UNANSWERED_QUESTIONS, VOTED_FOR_QUESTION
 } from '../actions/questions';
 
 export default function questions(state = {}, action) {
     switch (action.type) {
-        case RECEIVE_QUESTIONS:
+        case RECEIVE_QUESTIONS: case UNANSWERED_QUESTIONS:
             return {
                 ...state,
                 ...action.questions
