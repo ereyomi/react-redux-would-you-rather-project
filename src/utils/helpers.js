@@ -19,3 +19,9 @@ export function formatQuestion( question, author )
         optionTwoText: optionTwo.text,
     }
 }
+export function formatAuth ( users, authedUser )
+{
+    const data = users[ authedUser ] ? users[ authedUser ] : null;
+    return data;
+    
+}

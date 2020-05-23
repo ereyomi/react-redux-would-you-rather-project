@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { Component } from 'react'
 
-
-const AnwseredQuestions = () =>
-{
-    return (
-        <div>AnwseredQuestions</div>
-    )
+export class AnwseredQuestions extends Component {
+    render() {
+        return (
+            <div>
+                jflvkhvkjhcmf
+            </div>
+        )
+    }
 }
 
 export default AnwseredQuestions

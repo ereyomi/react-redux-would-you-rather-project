@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Switch, Route, NavLink, Redirect } from 'react-router-dom';
+import { Switch, Route, Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import UnAnwseredQuestions from './UnAnwseredQuestions';
 import AnwseredQuestions from './AnwseredQuestions';
@@ -9,39 +9,37 @@ export class Home extends Component {
     render ()
     {
         
-        const { isAuthenticated } = this.props;
-        console.log("from home: ", isAuthenticated)
-        const { from } = this.props.location.state || { from: { pathname: '/' } }
+        /* const { isAuthenticated } = this.props; */
+        
+        // const { from } = this.props.location.state || { from: { pathname: '/' } }
 
-        if ( !isAuthenticated )
-        {
-            return <Redirect to={ from } />
-        }
-
+        // if ( isAuthenticated === false )
+        // {
+        //     console.log("home- auth:", isAuthenticated)
+        //     return <Redirect to="/" /> || <Redirect to={ from } />
+        // }
+        let { path, url } = this.props.match; 
         return (
             <div>
+                
                 <nav className="nav">
                     <ul>
                         <li>
-                            <NavLink to="home/unanwsered" exact activeClassName="active">
-                                UnAnwsered Questions
-                            </NavLink>
+                            <Link to={ url }>UnAnwseredQuestions</Link>
                         </li>
                         <li>
-                            <NavLink to="home/anwsered" exact activeClassName="active">
-                                Anwsered Questions
-                            </NavLink>
+                            <Link to={ `${ url }/anwsered` }>AnwseredQuestions</Link>
                         </li>
                     </ul>
                 </nav>
 
                 <Switch>
-                    
-                    <Route path="home" component={ UnAnwseredQuestions } />
-                    <Route path="home/anwsered" component={ AnwseredQuestions } />
-                    { /* <Route>
-                        <NoMatch />
-                    </Route> */ }
+                    <Route exact path={path}>
+                        <UnAnwseredQuestions />
+                    </Route>
+                    <Route path={ `${ path }/anwsered` }>
+                        <AnwseredQuestions />
+                    </Route>
                 </Switch>
                 
             </div>
@@ -58,4 +56,4 @@ function mapStateToProps ( { authedUser, users } )
     }
 }
 
-export default connect( mapStateToProps)(Home)
+export default withRouter(connect( mapStateToProps)(Home))

@@ -1,30 +1,69 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component } from 'react'
+import { Link, withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { unsetAuthedUser } from '../actions/authedUser'
+import { formatAuth } from '../utils/helpers'
 
-
-const Nav = () =>
+export class Nav extends Component
 {
-    return (
-        <nav className="nav">
-            <ul>
-                <li>
-                    <Link to="/home">
-                        Home
-                    </Link>
-                </li>
-                <li>
-                    <Link to="/newQuestion">
-                        New Question
-                    </Link>
-                </li>
-                <li>
-                    <Link to="/board">
-                        Leader Board
-                    </Link>
-                </li>
-            </ul>
-        </nav>
-    )
+    signOut = () =>
+    {
+        const { dispatch, history } = this.props;
+        dispatch( unsetAuthedUser())
+        history.push( '/' )
+    }
+    render ()
+    {
+        const { isAuthenticated, authedUser } = this.props; 
+        return (
+            <div>
+                <nav className="nav">
+                    <ul>
+                        <li>
+                            <Link to="/">
+                                Home
+                        </Link>
+                        </li>
+                        <li>
+                            <Link to="/newQuestion">
+                                New Question
+                        </Link>
+                        </li>
+                        <li>
+                            <Link to="/board">
+                                Leader Board
+                        </Link>
+                        </li>
+                    </ul>
+
+                </nav>
+                <div>
+                    { isAuthenticated ? (
+                        <p>
+                            <button onClick={ this.signOut }>Sign out</button>
+                            {
+                                authedUser
+                                    ? authedUser.name
+                                    : ''
+                            }
+                        </p>
+                    ) : (
+                            <p>You are not logged in.</p>
+                        )
+                    }
+                </div>
+            </div>
+        )
+    }
 }
 
-export default Nav
+function mapStateToProps ( { users, authedUser } )
+{
+    return {
+        users,
+        authedUser: formatAuth( users, authedUser),
+        isAuthenticated: authedUser ? true : false,
+    }
+}
+
+export default withRouter(connect( mapStateToProps)(Nav))

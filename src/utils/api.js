@@ -16,8 +16,9 @@ export async function getInitialData() {
     });
 }
 
-export function saveQuestion(data) {
-    return _saveQuestion(data);
+export function saveQuestion ( data )
+{
+    return _saveQuestion( data )
 }
 
 export function saveQuestionAnswer(data) {

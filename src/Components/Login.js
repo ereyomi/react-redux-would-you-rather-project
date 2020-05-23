@@ -44,12 +44,11 @@ export class Login extends Component
     render ()
     {
         const { isAuthenticated, users } = this.props;
-
         const { from } = this.props.location.state || { from: { pathname: '/' } }
-
+        
         if ( isAuthenticated )
         {
-            return <Redirect to={ from } />
+            return <Redirect to="/" /> || <Redirect to={ from } />
         }
 
         return (

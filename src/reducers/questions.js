@@ -1,5 +1,5 @@
 import {
-    RECEIVE_QUESTIONS
+    RECEIVE_QUESTIONS, VOTED_FOR_QUESTION
 } from '../actions/questions';
 
 export default function questions(state = {}, action) {
@@ -9,6 +9,19 @@ export default function questions(state = {}, action) {
                 ...state,
                 ...action.questions
             }
+        case VOTED_FOR_QUESTION:
+            const { questions } = action;
+            const { authedUser, qid, answer } = questions;
+            return {
+                ...state,
+                [ qid ]: {
+                    ...state[ qid ],
+                    [ answer ]: {
+                        ...state[ qid ][ answer ],
+                        votes: state[ qid ][ answer ].votes.concat( [ authedUser ] )
+                    }
+                }
+             }
             default:
                 return state
     }
