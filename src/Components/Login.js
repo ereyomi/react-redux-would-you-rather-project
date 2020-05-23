@@ -48,7 +48,7 @@ export class Login extends Component
         
         if ( isAuthenticated )
         {
-            return <Redirect to="/" /> || <Redirect to={ from } />
+            return <Redirect to="/home" /> || <Redirect to={ from } />
         }
 
         return (

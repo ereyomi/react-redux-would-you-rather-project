@@ -20,7 +20,7 @@ export class Nav extends Component
                 <nav className="nav">
                     <ul>
                         <li>
-                            <Link to="/">
+                            <Link to="/home">
                                 Home
                         </Link>
                         </li>

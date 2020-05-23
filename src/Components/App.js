@@ -1,9 +1,10 @@
 import React, { Component, Fragment } from 'react';
-import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import { Route, Switch} from 'react-router-dom';
 import { connect } from 'react-redux';
 import { handleInitialData } from '../actions/shared';
-/* import AuthPage from './AuthPage' */
-import Home from './Home'
+import AuthPage from './AuthPage' 
+import HomePage from './HomePage'
+import Login from './Login'
 import Nav from './Nav'
 import ViewPoll from './ViewPoll'
 import VoteQuestionPage from './VoteQuestionPage'
@@ -15,20 +16,20 @@ export class App extends Component
   } 
   render() {
       return (
-          <Router>
               <Fragment>
                   <Nav />
-                  <div>
-                      <Switch>
-                          <Route exact path="/" component={ Home } />
-                          <Route path="/leaderboard" component={ LeaderBoard } />
-                          <Route path="/question/:question_id" component={ VoteQuestionPage } />
-                          <Route path="/viewpoll/:question_id" component={ ViewPoll } />
-                      </Switch>
+              <div>
+                  <AuthPage />
+                  { /* <Switch>
+                        <Route exact path="/" component={ Login } />
+                        <Route path="/home" component={ HomePage } />
+                        <Route path="/leaderboard" component={ LeaderBoard } />
+                        <Route path="/question/:question_id" component={ VoteQuestionPage } />
+                        <Route path="/viewpoll/:question_id" component={ ViewPoll } />
+                      </Switch> */ }
                       
                     </div>
               </Fragment>
-        </Router>
       
     )
   }

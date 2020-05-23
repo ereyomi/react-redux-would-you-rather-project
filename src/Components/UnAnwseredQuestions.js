@@ -1,7 +1,5 @@
-import React,  {Component} from 'react';
-///import { bindActionCreators } from 'redux'
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-//import { unAnsweredQuestions } from '../actions/questions';
 import { getUnAwseredQuestions } from '../utils/helpers';
 import Question from './Question';
 
@@ -37,12 +35,5 @@ function mapStateToProps ( { authedUser, users, questions } )
         questions: getUnAwseredQuestions( { authedUser, users, questions }),
     }
 } 
-
-/* function mapDispatchToProps ( dispatch, stateProps )
-{
-    return {
-        actions: bindActionCreators( unAnsweredQuestions( stateProps ), dispatch )
-    } 
-} */
 
 export default connect( mapStateToProps)(UnAnwseredQuestions)

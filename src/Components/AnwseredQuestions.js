@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
-
+import { connect } from 'react-redux';
 export class AnwseredQuestions extends Component {
     render() {
         return (
             <div>
-                jflvkhvkjhcmf
+                <h3 className="center">Anwsered Questions</h3>
             </div>
         )
     }
 }
 
-export default AnwseredQuestions
+export default connect()(AnwseredQuestions)
