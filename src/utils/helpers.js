@@ -70,6 +70,31 @@ export function getUnAwseredQuestions ( { authedUser, users, questions })
         
     }
 }
+export function AwseredQuestions ( { authedUser, users, questions } )
+{
+    const fomattedAuthedUser = getAuthDetails( users, authedUser )
+
+    if ( !fomattedAuthedUser )
+    {
+        return null
+    } else
+    {
+        const anwsers = [ ...Object.keys( fomattedAuthedUser.answers ) ];
+        const filt = Object.keys( questions )
+            .sort( ( b, a ) => questions[ a ].timestamps - questions[ b ].timestamps )
+            .filter( ( key ) => anwsers.includes( key ) )
+            .reduce( ( obj, key ) =>
+            {
+                return {
+                    ...obj,
+                    [ key ]: questions[ key ]
+                }
+            }, {} )
+
+        return filt;
+
+    }
+}
 
 export function formatUsers ( users )
 {

@@ -4,7 +4,6 @@ import
     Switch,
     Route,
     Link,
-    useParams,
     useRouteMatch
 } from "react-router-dom";
 import UnAnwseredQuestions from './UnAnwseredQuestions'
@@ -28,9 +27,6 @@ const HomePage = () => {
                     <Route exact path={ path }>
                         <UnAnwseredQuestions />
                     </Route>
-                    <Route path={ `${ path }/:topicId` }>
-                        <Topic />
-                    </Route>
                     <Route path={ `${ path }/aws` }>
                         <AnwseredQuestions />
                     </Route>
@@ -39,18 +35,5 @@ const HomePage = () => {
         )
     
 }
-function Topic ()
-{
-    // The <Route> that rendered this component has a
-    // path of `/topics/:topicId`. The `:topicId` portion
-    // of the URL indicates a placeholder that we can
-    // get from `useParams()`.
-    let { topicId } = useParams();
 
-    return (
-        <div>
-            <h3>{ topicId }</h3>
-        </div>
-    );
-}
 export default HomePage
