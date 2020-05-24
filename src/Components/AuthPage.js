@@ -12,7 +12,7 @@ import ViewPoll from './ViewPoll'
 import VoteQuestionPage from './VoteQuestionPage'
 import LeaderBoard from './LeaderBoard'
 import NewQuestionPage from './NewQuestionPage'
-
+import ErrorPage from './ErrorPage'
 
 const PrivateRoute = ( { isAuthenticated, component: Component, ...rest } ) => (
     <Route { ...rest } render={ ( props ) => (
@@ -28,10 +28,6 @@ const PrivateRoute = ( { isAuthenticated, component: Component, ...rest } ) => (
 
 export class AuthPage extends Component
 {
-    state = {
-        isAuthenticated: false,
-        uid: ''
-    }
     render ()
     {
         const { isAuthenticated } = this.props;
@@ -44,6 +40,7 @@ export class AuthPage extends Component
                 <PrivateRoute path="/add" component={ NewQuestionPage } isAuthenticated={ isAuthenticated } />
                 <PrivateRoute path="/question/:question_id" component={ VoteQuestionPage } isAuthenticated={ isAuthenticated }/>
                 <PrivateRoute path="/viewpoll/:question_id" component={ ViewPoll } isAuthenticated={ isAuthenticated }/>
+                <PrivateRoute component={ ErrorPage } isAuthenticated={ isAuthenticated }/>
             </Switch>
         )
     }
