@@ -25,7 +25,7 @@ export class Nav extends Component
                         </Link>
                         </li>
                         <li>
-                            <Link to="/newQuestion">
+                            <Link to="/add">
                                 New Question
                         </Link>
                         </li>

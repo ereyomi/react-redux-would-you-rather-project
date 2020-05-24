@@ -1,35 +1,35 @@
-import { saveQuestionAnswer } from '../utils/api'
-import { votedByUser } from './users';
+import { saveQuestionAnswer, saveQuestion } from '../utils/api'
+import { votedByUser, createdByUser } from './users';
 import { getUnAwseredQuestions } from '../utils/helpers';
 
 export const RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS';
 export const VOTE_QUESTION = 'VOTE_QUESTIONS';
 export const VOTED_FOR_QUESTION = 'VOTED_FOR_QUESTION';
 export const UNANSWERED_QUESTIONS = 'UNANSWERED_QUESTIONS';
+export const ADD_QUESTION = 'ADD_QUESTION';
 
-
-export function receiveQuestions(questions) {
+export const receiveQuestions = (questions) => {
     return {
         type: RECEIVE_QUESTIONS,
         questions,
     }
 }
-export function unAnsweredQuestions ( data )
+export const unAnsweredQuestions = ( data ) =>
 {
     return {
         type: UNANSWERED_QUESTIONS,
         questions: getUnAwseredQuestions(data),
     }
 }
-function votedForQuestion ( questions )
+export const votedForQuestion = ( question ) =>
 {
     return {
         type: VOTED_FOR_QUESTION,
-        questions,
+        question,
     }
 }
 
-export function voteQuestion ( authedUser, qid, answer )
+export const voteQuestion = ( authedUser, qid, answer ) =>
 {
    
     return ( dispatch ) => {
@@ -42,6 +42,29 @@ export function voteQuestion ( authedUser, qid, answer )
             {
                 dispatch( votedForQuestion( data ) )
                 dispatch( votedByUser( data ) )
+            } )
+        .catch((error) => console.log("error::", error))
+    }
+}
+export const addQuestion = (question) => {
+    return {
+        type: ADD_QUESTION,
+        question,
+    }
+}
+export const handleAddQuestion = ( { optionOneText, optionTwoText, author }) =>
+{
+   
+    return ( dispatch ) => {
+        return saveQuestion( {
+            optionOneText,
+            optionTwoText,
+            author,
+        } )
+            .then( ( data ) =>
+            {
+                dispatch(createdByUser( data ))
+                dispatch( addQuestion( data ) )
             } )
         .catch((error) => console.log("error::", error))
     }

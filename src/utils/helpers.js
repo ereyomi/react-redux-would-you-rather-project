@@ -56,7 +56,7 @@ export function getUnAwseredQuestions ( { authedUser, users, questions })
     {
         const anwsers = [...Object.keys(fomattedAuthedUser.answers)];
         const filt = Object.keys( questions )
-        .sort( ( b, a ) => questions[ a ].timestamps - questions[ b ].timestamps )
+        .sort( ( a, b ) => questions[ b ].timestamps - questions[ a ].timestamps )
         .filter( ( key ) => !anwsers.includes( key ) )
             .reduce( ( obj, key ) =>
             {
@@ -81,7 +81,7 @@ export function AwseredQuestions ( { authedUser, users, questions } )
     {
         const anwsers = [ ...Object.keys( fomattedAuthedUser.answers ) ];
         const filt = Object.keys( questions )
-            .sort( ( b, a ) => questions[ a ].timestamps - questions[ b ].timestamps )
+            .sort( ( a, b ) => questions[ b ].timestamps - questions[ a ].timestamps )
             .filter( ( key ) => anwsers.includes( key ) )
             .reduce( ( obj, key ) =>
             {

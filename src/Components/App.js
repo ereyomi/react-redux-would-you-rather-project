@@ -13,7 +13,7 @@ export class App extends Component
               <Fragment>
                   <Nav />
                   <div>
-                    <AuthPage />
+                  <AuthPage /> 
                 </div>
               </Fragment>
       

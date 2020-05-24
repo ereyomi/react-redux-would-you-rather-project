@@ -26,7 +26,7 @@ export class ViewPoll extends PureComponent
     }
     render ()
     {
-        const { question, qid } = this.props;
+        const { question } = this.props;
         if ( question === null )
         {
             return (<p> no data to load </p>)

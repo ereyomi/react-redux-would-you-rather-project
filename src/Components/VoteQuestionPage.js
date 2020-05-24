@@ -12,7 +12,6 @@ export class VoteQuestionPage extends PureComponent
     handleOption = event =>
     {
         const data = event.target.value;
-        console.log( data )
         this.setState( {
             votedOption: data
         } )

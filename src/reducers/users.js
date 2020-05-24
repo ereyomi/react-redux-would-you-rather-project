@@ -1,5 +1,5 @@
 import {
-    RECEIVE_USERS, VOTED_BY_USER
+    RECEIVE_USERS, VOTED_BY_USER,CREATED_BY_USER
 } from '../actions/users'; 
 
 export default function users(state = {}, action) {
@@ -10,8 +10,8 @@ export default function users(state = {}, action) {
                 ...action.users
             }
         case VOTED_BY_USER:
-            const { users } = action;
-            const { authedUser, qid, answer } = users;
+            const { user } = action;
+            const { authedUser, qid, answer } = user;
             return {
                 ...state,
                 [ authedUser ]: {
@@ -20,6 +20,14 @@ export default function users(state = {}, action) {
                         ...state[ authedUser ].answers,
                         [ qid ]: answer
                     }
+                }
+            }
+        case CREATED_BY_USER:
+            return {
+                ...state,
+                [action.question.author]: {
+                ...state[action.question.author],
+                questions: state[action.question.author].questions.concat([action.question.id])
                 }
             }
             default:

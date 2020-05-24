@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import
 {
-    BrowserRouter as Router,
     Route,
     Switch,
     Redirect,
@@ -12,6 +11,8 @@ import Login from './Login'
 import ViewPoll from './ViewPoll'
 import VoteQuestionPage from './VoteQuestionPage'
 import LeaderBoard from './LeaderBoard'
+import NewQuestionPage from './NewQuestionPage'
+
 
 const PrivateRoute = ( { isAuthenticated, component: Component, ...rest } ) => (
     <Route { ...rest } render={ ( props ) => (
@@ -39,7 +40,8 @@ export class AuthPage extends Component
             <Switch>               
                 <Route exact path="/" component={ Login } />
                 <PrivateRoute path="/home" component={ HomePage } isAuthenticated={ isAuthenticated }/>
-                <PrivateRoute path="/leaderboard" component={ LeaderBoard } isAuthenticated={ isAuthenticated }/>
+                <PrivateRoute path="/leaderboard" component={ LeaderBoard } isAuthenticated={ isAuthenticated } />
+                <PrivateRoute path="/add" component={ NewQuestionPage } isAuthenticated={ isAuthenticated } />
                 <PrivateRoute path="/question/:question_id" component={ VoteQuestionPage } isAuthenticated={ isAuthenticated }/>
                 <PrivateRoute path="/viewpoll/:question_id" component={ ViewPoll } isAuthenticated={ isAuthenticated }/>
             </Switch>

@@ -1,5 +1,5 @@
 import {
-    RECEIVE_QUESTIONS, UNANSWERED_QUESTIONS, VOTED_FOR_QUESTION
+    RECEIVE_QUESTIONS, UNANSWERED_QUESTIONS, VOTED_FOR_QUESTION, ADD_QUESTION
 } from '../actions/questions';
 
 export default function questions(state = {}, action) {
@@ -10,8 +10,8 @@ export default function questions(state = {}, action) {
                 ...action.questions
             }
         case VOTED_FOR_QUESTION:
-            const { questions } = action;
-            const { authedUser, qid, answer } = questions;
+            const { question } = action;
+            const { authedUser, qid, answer } = question;
             return {
                 ...state,
                 [ qid ]: {
@@ -22,6 +22,12 @@ export default function questions(state = {}, action) {
                     }
                 }
              }
+            case ADD_QUESTION:
+             
+            return {
+                ...state,
+                [action.question.id]: action.question
+            }
             default:
                 return state
     }

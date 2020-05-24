@@ -5,7 +5,6 @@ import { formatUsers } from '../utils/helpers'
 
 const LeaderBoard = ( { users } ) =>
 {
-    console.log( "lead: ", users )
     return (
         <div>
             { users.map( ( user ) => (
