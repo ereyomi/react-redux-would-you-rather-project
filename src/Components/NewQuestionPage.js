@@ -41,31 +41,33 @@ export class NewQuestionPage extends Component
     }
     render() {
         return (
-            <div>
-                <h1>Create New Question</h1>
-                <div>
-                    <p>Complete the question: </p>
-                    <form onSubmit={this.handleTheSubmit}>
-                        <h2>Would you Rather</h2>
-                        <div>
-                            <input type="text"
-                                placeholder="Enter Option One Text here"
-                                name="optionOneText"
-                                value={ this.state.optionOneText }
-                                onChange={ this.handleInput}/>
-                        </div>
-                        <p>or</p>
-                        <div>
-                            <input type="text"
-                                placeholder="Enter Option Two Text here"
-                                name="optionTwoText"
-                                value={ this.state.optionTwoText }
-                                onChange={ this.handleInput }/>
-                        </div>
-                        <div>
-                                <button type="submit" disabled={this.state.disabled}>Submit</button>
-                        </div>
-                    </form>
+            <div className="row">
+                <div className="col-5 pad flex-direction-column justify-content-and-align-items-to-center ">
+                    <h2 className="color-A">Create New Question</h2>
+                    <div className="col-12 flex-direction-column justify-content-and-align-items-to-center pad">
+                        <p>Complete the question: </p>
+                        <form onSubmit={ this.handleTheSubmit } className="col-12 flex-direction-column">
+                            <h3 className="pad color-A">Would you Rather...</h3>
+                            <div className="formgroup">
+                                <input type="text"
+                                    placeholder="Enter Option One Text here"
+                                    name="optionOneText"
+                                    value={ this.state.optionOneText }
+                                    onChange={ this.handleInput } />
+                            </div>
+                            <h4 className="color-A" style={{textAlign: 'center', padding: '5px'}}>OR</h4>
+                            <div className="formgroup">
+                                <input type="text"
+                                    placeholder="Enter Option Two Text here"
+                                    name="optionTwoText"
+                                    value={ this.state.optionTwoText }
+                                    onChange={ this.handleInput } />
+                            </div>
+                            <div className="marg-top-bottom">
+                                <button type="submit" className="btn" disabled={ this.state.disabled }>Submit</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         )

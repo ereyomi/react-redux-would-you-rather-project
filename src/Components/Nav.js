@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import { Link, withRouter } from 'react-router-dom'
+import { NavLink, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { unsetAuthedUser } from '../actions/authedUser'
 import { getAuthDetails } from '../utils/helpers'
-
 export class Nav extends Component
 {
     signOut = () =>
@@ -16,43 +15,39 @@ export class Nav extends Component
     {
         const { isAuthenticated, authedUser } = this.props; 
         return (
-            <div>
+            <header className="header">
                 <nav className="nav">
                     <ul>
                         <li>
-                            <Link to="/home">
+                            <NavLink to="/home" activeClassName="is-active">
                                 Home
-                        </Link>
+                        </NavLink>
                         </li>
                         <li>
-                            <Link to="/add">
+                            <NavLink to="/add" activeClassName="is-active">
                                 New Question
-                        </Link>
+                        </NavLink>
                         </li>
                         <li>
-                            <Link to="/leaderboard">
+                            <NavLink to="/leaderboard" activeClassName="is-active">
                                 Leader Board
-                        </Link>
+                        </NavLink>
                         </li>
                     </ul>
 
                 </nav>
-                <div>
-                    { isAuthenticated ? (
-                        <p>
-                            <button onClick={ this.signOut }>Sign out</button>
-                            {
-                                authedUser
-                                    ? authedUser.name
-                                    : ''
-                            }
-                        </p>
-                    ) : (
-                            <p>You are not logged in.</p>
-                        )
+                <div className="authDiv">
+                    { ( isAuthenticated && authedUser ) ? (
+                            
+                        <div className="authDiv-sm">
+                            <span>Hello, { authedUser.name }</span>
+                            <span className="profile"><img src={ `../avatar/${ authedUser.avatarURL}` } alt="snvfsf"/></span>
+                            <button onClick={ this.signOut } className="logoutBtn">logout</button>
+                        </div>
+                    ) : ''
                     }
                 </div>
-            </div>
+            </header>
         )
     }
 }

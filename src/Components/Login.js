@@ -52,17 +52,19 @@ export class Login extends Component
         }
 
         return (
-            <div>
-                <form onSubmit={this.handleSubmit}>
-                    <select placeholder="Select User" value={this.state.userId} onChange={this.handleSelectChange}>
-                        <option>Select User</option>
-                        {
-                            users.map( ( user ) => (
-                                <option key={ user.id } value={ user.id }>{ user.name }</option>
-                            ) )
-                        }
-                    </select>
-                    <button type="submit">login</button>
+            <div className="row justify-content-and-align-items-to-center">
+                <form onSubmit={this.handleSubmit} className="col-5 card flex-direction-column pad">
+                    <div className="formgroup">
+                        <select placeholder="Select User" value={this.state.userId} onChange={this.handleSelectChange}>
+                            <option>Select User</option>
+                            {
+                                users.map( ( user ) => (
+                                    <option key={ user.id } value={ user.id }>{ user.name }</option>
+                                ) )
+                            }
+                        </select>
+                    </div>
+                    <button type="submit" className="btn">login</button>
                 </form>
                 
             </div>

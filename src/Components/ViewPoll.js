@@ -2,27 +2,14 @@ import React, { PureComponent } from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { formatQuestion } from '../utils/helpers';
-import { voteQuestion } from '../actions/questions'
 
 export class ViewPoll extends PureComponent
 {
-    state = {
-        votedOption: '',
-    }
-    handleOption = event =>
+    
+    mathFloorVote = ( option, total) =>
     {
-        const data = event.target.value;
-        console.log(data)
-        this.setState( {
-            votedOption: data
-        })
-    }
-    handleSubmit = event =>
-    {
-        event.preventDefault();
-        const { authedUser, dispatch, qid } = this.props;
-        const answer = this.state.votedOption;
-        dispatch( voteQuestion( authedUser, qid, answer))
+        const answer = ( option / total ) * 100;
+        return `${Math.floor( answer )}%`;
     }
     render ()
     {
@@ -31,23 +18,53 @@ export class ViewPoll extends PureComponent
         {
             return (<p> no data to load </p>)
         }
-        const { name, optionOneText, optionTwoText, optionOneVotes, optionTwoVotes } = question;
+        const { name, avatarURL, optionOneText, optionTwoText, optionOneVotes, optionTwoVotes, hasVotedOptionOne, hasVotedOptionTwo } = question;
+
+        console.log( "question: ", question );
         const totalvotes = optionOneVotes + optionTwoVotes;
         return (
-            <div>
-                <h2> Asked By: { name }</h2>
-                <h3>Results:</h3>
-                <div>
-                    <p>{ optionOneText }</p>
-                    <p>{ (optionOneVotes / totalvotes ) * 100 }%</p>
-                    <p>{ optionOneVotes } of { totalvotes }</p>
+            <div className="row flex-direction-column pad-top">
+                <div className="col-6 flex-direction-column card">
+                    <div className="col-12 flex-direction-column pad">
+                        <h3 className="color-A">Asked By: { name }</h3>
+                        <div className="col-12 flex-direction-row">
+                            <div className="col-5 justify-content-and-align-items-to-center">
+                                <div className="img-box">
+                                    <img src={ `../avatar/${ avatarURL }` } alt="snvfsf" />
+                                </div>
+                            </div>
+                            <div className="col-7 flex-direction-column pad">
+                                <h3 className="color-A">Results:</h3>
+                                <div className="card pad" style={ {
+                                    background: hasVotedOptionOne ? 'rgb(253, 243, 242)' : ''
+                                    } }>
+                                    <p>{ optionOneText }</p>
+                                    <div className="col-12 marg-top-bottom border-radius background-B">
+                                        <div className="progress-bar border-radius" style={ {
+                                            width: `${ this.mathFloorVote( optionOneVotes, totalvotes )}`
+                                        } }>
+                                            { this.mathFloorVote( optionOneVotes, totalvotes ) }
+                                        </div>
+                                    </div>
+                                    <p>{ optionOneVotes } of { totalvotes }</p>
+                                </div>
+                                <div className="card pad" style={ {
+                                    background: hasVotedOptionTwo ? 'rgb(253, 243, 242)' : ''
+                                } }>
+                                    <p>{ optionTwoText }</p>
+                                    <div className="col-12 marg-top-bottom border-radius background-B">
+                                        <div className="progress-bar border-radius" style={ {
+                                            width: `${ this.mathFloorVote( optionTwoVotes, totalvotes ) }`
+                                        } }>
+                                            { this.mathFloorVote( optionTwoVotes, totalvotes ) }
+                                        </div>
+                                    </div>
+                                    <p>{ optionTwoVotes } of { totalvotes }</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <p>{ optionTwoText }</p>
-                    <p>{ ( optionTwoVotes / totalvotes ) * 100 }%</p>
-                    <p>{ optionTwoVotes } of { totalvotes }</p>
-                </div>
-                
             </div>
         )
     }

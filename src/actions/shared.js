@@ -1,7 +1,7 @@
 import { getInitialData } from '../utils/api';
 import { receiveUsers } from '../actions/users';
 import { receiveQuestions } from '../actions/questions';
-//import { setAuthedUser } from '../actions/authedUser';
+// import { setAuthedUser } from '../actions/authedUser';
 
 export function handleInitialData()
 {
@@ -10,7 +10,7 @@ export function handleInitialData()
         return getInitialData()
             .then( ( { users, questions } ) =>
             {
-                //dispatch( setAuthedUser( 'tylermcginnis' ))
+                // dispatch( setAuthedUser( 'sarahedo' ))
                 dispatch( receiveUsers( users ))
                 dispatch( receiveQuestions( questions ))
             } )

@@ -45,33 +45,30 @@ export function getAuthDetails ( users, authedUser )
     
 }
 
-export function getUnAwseredQuestions ( { authedUser, users, questions })
+function returnInclude (filter, data, key)
 {
-    const fomattedAuthedUser = getAuthDetails( users, authedUser )
-
-    if ( !fomattedAuthedUser )
+    const filterByArr = [
+        'anwsered',
+        'unAnwsered'
+    ]
+    let filterBy = null
+    switch ( filter )
     {
-        return null
-    } else
-    {
-        const anwsers = [...Object.keys(fomattedAuthedUser.answers)];
-        const filt = Object.keys( questions )
-        .sort( ( a, b ) => questions[ b ].timestamps - questions[ a ].timestamps )
-        .filter( ( key ) => !anwsers.includes( key ) )
-            .reduce( ( obj, key ) =>
-            {
-                return {
-                    ...obj,
-                    [ key ]: questions[ key ]
-                }
-            }, {} ) 
-        
-        return filt;
-        
+        case filterByArr[ 0 ]:
+            filterBy = !data.includes(key);
+            break;
+        case filterByArr[ 1 ]:
+            filterBy = data.includes( key );
+            break;
+        default:
+            filterBy = !data.includes( key )
+            break;
     }
+    return filterBy;
 }
-export function AwseredQuestions ( { authedUser, users, questions } )
+function filteredQuestions ( { authedUser, users, questions }, filter)
 {
+    
     const fomattedAuthedUser = getAuthDetails( users, authedUser )
 
     if ( !fomattedAuthedUser )
@@ -81,6 +78,17 @@ export function AwseredQuestions ( { authedUser, users, questions } )
     {
         const anwsers = [ ...Object.keys( fomattedAuthedUser.answers ) ];
         const filt = Object.keys( questions )
+            .sort( ( a, b ) => questions[ b ].timestamp - questions[ a ].timestamp )
+            .filter( ( key ) => returnInclude( filter, anwsers, key ) )
+            .reduce( ( obj, key ) =>
+            {
+                return {
+                    ...obj,
+                    [ key ]: questions[ key ]
+                }
+            }, {} )
+        
+        /* const filt = Object.keys( questions )
             .sort( ( a, b ) => questions[ b ].timestamps - questions[ a ].timestamps )
             .filter( ( key ) => anwsers.includes( key ) )
             .reduce( ( obj, key ) =>
@@ -89,11 +97,21 @@ export function AwseredQuestions ( { authedUser, users, questions } )
                     ...obj,
                     [ key ]: questions[ key ]
                 }
-            }, {} )
-
+            }, {} ) */ 
+        
         return filt;
-
+        
     }
+}
+export function getUnAwseredQuestions ( { authedUser, users, questions } )
+{
+    const filterBy = 'anwsered';
+    return filteredQuestions( { authedUser, users, questions }, filterBy )
+}
+export function AwseredQuestions ( { authedUser, users, questions } )
+{
+    const filterBy = 'unAnwsered';
+    return filteredQuestions( { authedUser, users, questions }, filterBy )
 }
 
 export function formatUsers ( users )

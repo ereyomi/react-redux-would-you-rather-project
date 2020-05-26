@@ -5,21 +5,16 @@ import Question from './Question';
 
 const AnwseredQuestions = ( { questions }) => {
         return (
-            <div>
-                <div>
-                    <div>
-                        <h3 className="center">Anwsered Questions</h3>
-                        <ul className="dashboard-list">
-                            {
-                                questions ? Object.keys( questions ).map( ( id ) => (
-                                    <li key={ id }>
-                                        <Question id={ id } />
-                                    </li>
-                                ) ) : ''
-                            }
-                        </ul>
-                    </div>
-                </div>
+            <div className="row pad-top">
+                <ul className="col-12 flex-direction-column">
+                    {
+                        questions ? Object.keys( questions ).map( ( id ) => (
+                            <li key={ id } className="col-12 card">
+                                <Question id={ id } />
+                            </li>
+                        ) ) : ''
+                    }
+                </ul>
             </div>
         )
 }
